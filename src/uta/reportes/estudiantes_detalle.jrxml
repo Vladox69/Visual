@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc166e59-c491-4ab9-be61-212be049bc0a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="curso" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\ASUS\\OneDrive\\Desktop\\Compu Visual\\P2\\UTA\\src\\uta\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     estudiantes.`CED_EST` AS estudiantes_CED_EST,
+     estudiantes.`APE_EST` AS estudiantes_APE_EST,
+     estudiantes.`NOM_EST` AS estudiantes_NOM_EST,
+     estudiantes.`TELF_EST` AS estudiantes_TELF_EST,
+     estudiantes.`SEX_EST` AS estudiantes_SEX_EST,
+     estudiantes.`EST_CIV_EST` AS estudiantes_EST_CIV_EST,
+     estudiantes.`PRO_EST` AS estudiantes_PRO_EST,
+     estudiantes.`ID_CUR_PER` AS estudiantes_ID_CUR_PER
+FROM
+     `estudiantes` estudiantes
+WHERE estudiantes.`ID_CUR_PER`=$P{curso}]]>
+	</queryString>
+	<field name="estudiantes_CED_EST" class="java.lang.String"/>
+	<field name="estudiantes_APE_EST" class="java.lang.String"/>
+	<field name="estudiantes_NOM_EST" class="java.lang.String"/>
+	<field name="estudiantes_TELF_EST" class="java.lang.String"/>
+	<field name="estudiantes_SEX_EST" class="java.lang.String"/>
+	<field name="estudiantes_EST_CIV_EST" class="java.lang.String"/>
+	<field name="estudiantes_PRO_EST" class="java.lang.String"/>
+	<field name="estudiantes_ID_CUR_PER" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="41" width="100" height="20" uuid="663a1f36-68e9-42ec-8c77-7178b5f66c5c"/>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="41" width="100" height="20" uuid="46f4d35d-4acc-42a1-b0d2-cf59b2bd9464"/>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="41" width="100" height="20" uuid="6c861f94-c832-4dcc-9490-0d9dd8e8f56e"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="95" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="25" width="100" height="20" uuid="78c6137a-9786-48e0-b3b3-22704163fd3c"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_CED_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="25" width="100" height="20" uuid="f7a02b6d-abc4-43e0-8ef0-1b7fa7491e2e"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_APE_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="25" width="100" height="20" uuid="6b14fea3-7268-45c6-9b38-5024051044bf"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_NOM_EST}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="182" splitType="Stretch"/>
+	</summary>
+</jasperReport>

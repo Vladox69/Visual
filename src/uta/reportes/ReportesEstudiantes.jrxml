@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28d1dd54-eb3e-470f-b30c-baa2b299c726">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cedula" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     estudiantes.`CED_EST` AS estudiantes_CED_EST,
+     estudiantes.`APE_EST` AS estudiantes_APE_EST,
+     estudiantes.`NOM_EST` AS estudiantes_NOM_EST,
+     estudiantes.`TELF_EST` AS estudiantes_TELF_EST,
+     estudiantes.`SEX_EST` AS estudiantes_SEX_EST,
+     estudiantes.`EST_CIV_EST` AS estudiantes_EST_CIV_EST,
+     estudiantes.`PRO_EST` AS estudiantes_PRO_EST
+FROM
+     `estudiantes` estudiantes
+]]>
+	</queryString>
+	<field name="estudiantes_CED_EST" class="java.lang.String"/>
+	<field name="estudiantes_APE_EST" class="java.lang.String"/>
+	<field name="estudiantes_NOM_EST" class="java.lang.String"/>
+	<field name="estudiantes_TELF_EST" class="java.lang.String"/>
+	<field name="estudiantes_SEX_EST" class="java.lang.String"/>
+	<field name="estudiantes_EST_CIV_EST" class="java.lang.String"/>
+	<field name="estudiantes_PRO_EST" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="12" width="100" height="20" uuid="31de7362-38c7-434d-b438-aa482ec924f8"/>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="12" width="100" height="20" uuid="644ad92c-0fab-4aba-91b7-2931c1ea3de4"/>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="12" width="100" height="20" uuid="6ddd929e-1f56-4282-8a73-002a7c0e1090"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="12" width="100" height="20" uuid="0a86600e-7dc5-459b-b588-67ed8bba66b2"/>
+				<text><![CDATA[SEXO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="12" width="100" height="20" uuid="54c3abe3-27bc-40a5-b463-ffb89df986b1"/>
+				<text><![CDATA[ESTADO CIVIL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="10" width="100" height="20" uuid="29c8710e-b280-4c1c-ae09-51ed9d60e306"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_CED_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="10" width="100" height="20" uuid="658697a1-f531-461f-8be2-72172420994c"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_APE_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="10" width="100" height="20" uuid="dd28728b-ae15-4f65-ad72-edf9aace0c6a"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_NOM_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="10" width="100" height="20" uuid="9820ad29-2f8b-47e6-a85c-bd526f7fea13"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_SEX_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="10" width="100" height="20" uuid="49ab494b-dd1b-42b8-83d1-24de83d6bc81"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_EST_CIV_EST}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="134" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="0" y="0" width="399" height="134" uuid="818e4cdc-6061-4fad-879c-e5e697a4eda7"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Estudiantes"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{estudiantes_NOM_EST}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{COLUMN_COUNT}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

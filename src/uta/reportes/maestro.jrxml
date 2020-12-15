@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="78e90902-e332-4e33-a8ff-53c833651101">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="curso" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\ASUS\\OneDrive\\Desktop\\Compu Visual\\P2\\UTA\\src\\uta\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     curso.`ID_CUR` AS curso_ID_CUR,
+     curso.`NOM_CUR` AS curso_NOM_CUR,
+     curso.`NIV_CUR` AS curso_NIV_CUR,
+     curso.`OBS_CUR` AS curso_OBS_CUR
+FROM
+     `curso` curso
+WHERE curso.`ID_CUR`=$P{curso}]]>
+	</queryString>
+	<field name="curso_ID_CUR" class="java.lang.String"/>
+	<field name="curso_NOM_CUR" class="java.lang.String"/>
+	<field name="curso_NIV_CUR" class="java.lang.String"/>
+	<field name="curso_OBS_CUR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="100" height="20" uuid="afb54c37-8060-4cf8-a704-c92fc99491a7"/>
+				<text><![CDATA[CLAVE CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="41" width="114" height="20" uuid="b442b61f-3629-4e8d-8f28-1593a475c0fa"/>
+				<text><![CDATA[NOMBRE DEL CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="41" width="100" height="20" uuid="47c387e7-40d0-480e-a8da-b451d3d7e500"/>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="a9e630fc-c5d8-4184-b250-6dfe702eedd4"/>
+				<textFieldExpression><![CDATA[$F{curso_ID_CUR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="1255d87a-a398-4d84-814b-88880d57117f"/>
+				<textFieldExpression><![CDATA[$F{curso_NOM_CUR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="0" width="100" height="20" uuid="fa78e117-f586-47f3-8d53-54e92df0011f"/>
+				<textFieldExpression><![CDATA[$F{curso_OBS_CUR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="180" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="180" uuid="98f01c03-2f9e-481b-958d-6066f5ea254e"/>
+				<subreportParameter name="curso">
+					<subreportParameterExpression><![CDATA[$P{curso}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "estudiantes_detalle.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>
