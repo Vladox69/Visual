@@ -6,8 +6,12 @@
 package uta.interfaces;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,34 +28,36 @@ public class IntCursos extends javax.swing.JFrame {
         initComponents();
         cargarCursos("");
     }
-
+    
     public void bloquearCampos() {
         txtNivel.setEnabled(false);
         txtNombre.setEnabled(false);
         txtDescripcion.setEnabled(false);
     }
-
+    
     public void desbloquearCampos() {
         txtNivel.setEnabled(true);
         txtNombre.setEnabled(true);
         txtDescripcion.setEnabled(true);
     }
-
+    
     public void bloquearBotones() {
         btInsertar.setEnabled(false);
         btModificar.setEnabled(false);
         btEliminar.setEnabled(false);
         btCancelar.setEnabled(false);
     }
-
+    
     public void desbloquearBotones() {
         btCancelar.setEnabled(true);
         btInsertar.setEnabled(true);
         btEliminar.setEnabled(true);
         btModificar.setEnabled(true);
     }
-
+    
     DefaultTableModel modeloDatos;
+    Integer idCurso;
+    final String prefijo = "CU";
 
     public void cargarCursos(String curso) {
         try {
@@ -67,19 +73,57 @@ public class IntCursos extends javax.swing.JFrame {
                 sql = "select * from curso where NOM_CUR LIKE'%" + curso + "%'";
             } else {
                 sql = "select * from curso where NOM_CUR ='" + curso + "'";
-
             }
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
+                idCurso = Integer.valueOf(rs.getString("ID_CUR").substring(2, 4));
                 cursos[0] = rs.getString("NOM_CUR");
                 cursos[1] = rs.getString("NIV_CUR");
                 cursos[2] = rs.getString("OBS_CUR");
                 modeloDatos.addRow(cursos);
             }
+            System.out.println(idCurso);
             tbCursos.setModel(modeloDatos);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Sucedio algo en la carga de datos");
+        }
+    }
+
+    public void insertarCurso() {
+        try {
+            String nombre;
+            String nivel;
+            String descripcion;
+            String codigo;
+            if (idCurso < 10) {
+                codigo = prefijo + "0" + (idCurso + 1);
+            } else {
+                codigo = prefijo + (idCurso + 1);
+            }
+            if (txtNombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un nombre de curso");
+                txtNombre.requestFocus();
+            } else if (txtNivel.getText().isEmpty()) {
+                JOptionPane.showConfirmDialog(null, "Debes llenar el nivel");
+                txtNivel.requestFocus();
+            } else if (txtDescripcion.getText().isEmpty()) {
+                descripcion = "SIN DESCRIPCION";
+            }
+            nombre = txtNombre.getText();
+            nivel = txtNivel.getText();
+            descripcion = txtDescripcion.getText();
+            conexion cc = new conexion();
+            Connection cn = cc.conectar();
+            String sqlInsertar = "insert into curso values(?,?,?,?)";
+            PreparedStatement pst = cn.prepareStatement(sqlInsertar);
+            pst.setString(1, codigo);
+            pst.setString(2, nombre.toUpperCase());
+            pst.setString(3, nivel);
+            pst.setString(4, descripcion.toUpperCase());
+            pst.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
         }
     }
 
@@ -160,6 +204,11 @@ public class IntCursos extends javax.swing.JFrame {
         btNuevo.setText("Nuevo");
 
         btInsertar.setText("Insertar");
+        btInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertarActionPerformed(evt);
+            }
+        });
 
         btModificar.setText("Modificar");
 
@@ -265,6 +314,11 @@ public class IntCursos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarActionPerformed
+        insertarCurso();
+        cargarCursos("");
+    }//GEN-LAST:event_btInsertarActionPerformed
 
     /**
      * @param args the command line arguments
