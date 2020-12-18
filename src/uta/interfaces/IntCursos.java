@@ -254,9 +254,26 @@ public class IntCursos extends javax.swing.JFrame {
 
         jLabel3.setText("Descripción");
 
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtNivel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNivelKeyTyped(evt);
+            }
+        });
+
         txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDescripcionActionPerformed(evt);
+            }
+        });
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
             }
         });
 
@@ -484,6 +501,36 @@ public class IntCursos extends javax.swing.JFrame {
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
         extensionEliminar();
     }//GEN-LAST:event_btEliminarActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char validar;
+        validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Enter only Letters");
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtNivelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNivelKeyTyped
+        char validar;
+        validar = evt.getKeyChar();
+        if( Character.isLetter(validar) ){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Enter only numbers");
+        }
+    }//GEN-LAST:event_txtNivelKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        char validar;
+        validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Enter only Letters");
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uta.interfaces;
 
 import java.awt.BorderLayout;
@@ -17,10 +13,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JRViewer;
 
-/**
- *
- * @author ASUS
- */
+
 public class IntReporte extends javax.swing.JInternalFrame {
 
     /**

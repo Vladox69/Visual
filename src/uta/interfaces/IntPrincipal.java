@@ -1,22 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package uta.interfaces;
 
 import java.awt.BorderLayout;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author ASUS
- */
 public class IntPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form IntPrincipal
-     */
+    
     IntEstudiantes estudiantes = new IntEstudiantes();
     IntReporte reportes=new IntReporte();
     
@@ -86,6 +76,7 @@ public class IntPrincipal extends javax.swing.JFrame {
         mInterfaces.setText("Interfaces");
 
         miEstudiantes.setText("Estudiantes");
+        miEstudiantes.setMargin(new java.awt.Insets(1, 1, 1, 1));
         miEstudiantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miEstudiantesActionPerformed(evt);

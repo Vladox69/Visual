@@ -12,6 +12,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="miEstudiantes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Estudiantes"/>
+                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                  <Insets value="[1, 1, 1, 1]"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEstudiantesActionPerformed"/>
