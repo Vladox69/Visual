@@ -156,13 +156,13 @@ public class IntCursos extends javax.swing.JFrame {
         int op = JOptionPane.showConfirmDialog(null, "Realmente desea modificar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (op == 0) {
             modificarCurso();
-            tbCursos.setCellSelectionEnabled(false);
+            tbCursos.clearSelection();
             bloquearBotones();
             bloquearCampos();
             limpiarCampos();
             cargarCursos("");
         } else {
-            tbCursos.setCellSelectionEnabled(false);
+            tbCursos.clearSelection();
             bloquearBotones();
             bloquearCampos();
             limpiarCampos();
@@ -189,13 +189,13 @@ public class IntCursos extends javax.swing.JFrame {
         int op = JOptionPane.showConfirmDialog(null, "Realmente desea eliminar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (op == 0) {
             eliminarCurso();
-            tbCursos.setCellSelectionEnabled(false);
+            tbCursos.clearSelection();
             bloquearBotones();
             bloquearCampos();
             limpiarCampos();
             cargarCursos("");
         } else {
-            tbCursos.setCellSelectionEnabled(false);
+            tbCursos.clearSelection();
             bloquearBotones();
             bloquearCampos();
             limpiarCampos();
@@ -486,6 +486,7 @@ public class IntCursos extends javax.swing.JFrame {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         limpiarCampos();
         bloquearBotones();
+        tbCursos.clearSelection();
         btNuevo.setEnabled(true);
         bloquearCampos();
     }//GEN-LAST:event_btCancelarActionPerformed
@@ -508,7 +509,7 @@ public class IntCursos extends javax.swing.JFrame {
         if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Enter only Letters");
+            JOptionPane.showMessageDialog(null, "Solo letras");
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
@@ -518,7 +519,7 @@ public class IntCursos extends javax.swing.JFrame {
         if( Character.isLetter(validar) ){
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Enter only numbers");
+            JOptionPane.showMessageDialog(null, "Solo número");
         }
     }//GEN-LAST:event_txtNivelKeyTyped
 
@@ -528,7 +529,7 @@ public class IntCursos extends javax.swing.JFrame {
         if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Enter only Letters");
+            JOptionPane.showMessageDialog(null, "Solo letras");
         }
     }//GEN-LAST:event_txtDescripcionKeyTyped
 

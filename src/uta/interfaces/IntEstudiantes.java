@@ -215,6 +215,7 @@ public class IntEstudiantes extends javax.swing.JInternalFrame {
         txtCedula.setEnabled(false);
         txtTelefono.setEnabled(false);
         cbEstadoCivil.setEnabled(false);
+        cbCurso.setEnabled(false);
         cbProvincias.setEnabled(false);
         rbFemenino.setEnabled(false);
         rbMasculino.setEnabled(false);
@@ -227,6 +228,7 @@ public class IntEstudiantes extends javax.swing.JInternalFrame {
         txtTelefono.setEnabled(true);
         cbEstadoCivil.setEnabled(true);
         cbProvincias.setEnabled(true);
+        cbCurso.setEnabled(false);
         rbFemenino.setEnabled(true);
         rbMasculino.setEnabled(true);
     }

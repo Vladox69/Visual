@@ -11,7 +11,7 @@ public class conexion {
     public Connection conectar(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect =DriverManager.getConnection("jdbc:mysql://localhost/UTA2","root","");
+            connect =DriverManager.getConnection("jdbc:mysql://localhost/uta","root","");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
