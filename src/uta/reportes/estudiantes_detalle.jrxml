@@ -33,44 +33,102 @@ WHERE estudiantes.`ID_CUR_PER`=$P{curso}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="91" splitType="Stretch">
+			<elementGroup/>
+			<image>
+				<reportElement x="0" y="0" width="555" height="91" uuid="4c798b6c-dcb4-47d5-995f-97d2acb82325"/>
+				<imageExpression><![CDATA["D:\\Documentos de Intel\\Documents\\NetBeansProjects\\Visual\\src\\imagenes\\logoU.png"]]></imageExpression>
+			</image>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="455" y="71" width="100" height="20" uuid="ca1f6598-e029-4575-a24f-bc3bf993e796"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="40" uuid="d01f8a65-795f-40dd-b369-24d84f09fdb7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="26" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE FILTRADO POR CURSOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="233" height="20" uuid="22b1dd1e-5b07-470a-a072-2bcea49dfb77"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de estudiantes matriculados en el curso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="233" y="40" width="100" height="20" uuid="bd3c2067-9925-4041-b7b2-4a3b3405ea41"/>
+				<textFieldExpression><![CDATA[$P{curso}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="66" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<staticText>
-				<reportElement x="32" y="41" width="100" height="20" uuid="663a1f36-68e9-42ec-8c77-7178b5f66c5c"/>
+				<reportElement x="2" y="0" width="100" height="20" uuid="663a1f36-68e9-42ec-8c77-7178b5f66c5c"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
 				<text><![CDATA[CEDULA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="132" y="41" width="100" height="20" uuid="46f4d35d-4acc-42a1-b0d2-cf59b2bd9464"/>
+				<reportElement x="103" y="0" width="100" height="20" uuid="46f4d35d-4acc-42a1-b0d2-cf59b2bd9464"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
 				<text><![CDATA[APELLIDO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="232" y="41" width="100" height="20" uuid="6c861f94-c832-4dcc-9490-0d9dd8e8f56e"/>
+				<reportElement x="203" y="0" width="100" height="20" uuid="6c861f94-c832-4dcc-9490-0d9dd8e8f56e"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
 				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="0" width="100" height="20" uuid="1b6486e0-7491-4d46-9499-af61ba981a8e"/>
+				<text><![CDATA[TELÉFONO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="95" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="32" y="25" width="100" height="20" uuid="78c6137a-9786-48e0-b3b3-22704163fd3c"/>
+				<reportElement x="3" y="0" width="100" height="20" uuid="78c6137a-9786-48e0-b3b3-22704163fd3c"/>
 				<textFieldExpression><![CDATA[$F{estudiantes_CED_EST}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="132" y="25" width="100" height="20" uuid="f7a02b6d-abc4-43e0-8ef0-1b7fa7491e2e"/>
+				<reportElement x="103" y="0" width="100" height="20" uuid="f7a02b6d-abc4-43e0-8ef0-1b7fa7491e2e"/>
 				<textFieldExpression><![CDATA[$F{estudiantes_APE_EST}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="232" y="25" width="100" height="20" uuid="6b14fea3-7268-45c6-9b38-5024051044bf"/>
+				<reportElement x="203" y="0" width="100" height="20" uuid="6b14fea3-7268-45c6-9b38-5024051044bf"/>
 				<textFieldExpression><![CDATA[$F{estudiantes_NOM_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="100" height="20" uuid="8a49c713-ccce-4395-94f4-f022e1f0a1f3"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_TELF_EST}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<summary>
-		<band height="182" splitType="Stretch"/>
-	</summary>
+	<pageFooter>
+		<band height="19">
+			<staticText>
+				<reportElement x="0" y="0" width="203" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="fc30002a-4041-46fc-8ef6-2a9d524eadc3"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ELABORADO POR: LUDWING BARRIGA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="19" uuid="295310ab-1a53-4288-a583-d810f58f4c54"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>

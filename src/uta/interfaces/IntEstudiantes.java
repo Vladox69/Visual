@@ -491,6 +491,11 @@ public class IntEstudiantes extends javax.swing.JInternalFrame {
         });
 
         btEliminar.setText("Eliminar");
+        btEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -677,6 +682,10 @@ public class IntEstudiantes extends javax.swing.JInternalFrame {
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEliminarActionPerformed
 
     /**
      * @param args the command line arguments
