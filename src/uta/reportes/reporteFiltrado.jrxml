@@ -4,9 +4,6 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="curso" class="java.lang.String"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\ASUS\\OneDrive\\Desktop\\Compu Visual\\P2\\UTA\\src\\uta\\reportes\\"]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      estudiantes.`CED_EST` AS estudiantes_CED_EST,

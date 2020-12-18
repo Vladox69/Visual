@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uta.interfaces;
 
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -17,10 +13,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JRViewer;
 
-/**
- *
- * @author ASUS
- */
 public class IntReporte extends javax.swing.JInternalFrame {
 
     /**
@@ -29,7 +21,7 @@ public class IntReporte extends javax.swing.JInternalFrame {
     public IntReporte() {
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,20 +73,20 @@ public class IntReporte extends javax.swing.JInternalFrame {
                 .addComponent(btReporte))
         );
 
-        getContentPane().add(pBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1183, 70));
+        getContentPane().add(pBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
         javax.swing.GroupLayout pReporteLayout = new javax.swing.GroupLayout(pReporte);
         pReporte.setLayout(pReporteLayout);
         pReporteLayout.setHorizontalGroup(
             pReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1183, Short.MAX_VALUE)
+            .addGap(0, 790, Short.MAX_VALUE)
         );
         pReporteLayout.setVerticalGroup(
             pReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 662, Short.MAX_VALUE)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
 
-        getContentPane().add(pReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 73, 1183, 662));
+        getContentPane().add(pReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 790, 230));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -102,19 +94,19 @@ public class IntReporte extends javax.swing.JInternalFrame {
     private void btReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReporteActionPerformed
         imprimirReporte();
     }//GEN-LAST:event_btReporteActionPerformed
-    
+
     public void imprimirReporte() {
         try {
             conexion cc = new conexion();
             Connection cn = cc.conectar();
             Map parametro = new HashMap();
             parametro.put("curso", txtCurso.getText());
-            JasperReport reporte = JasperCompileManager.compileReport("C://reportes/maestro.jrxml");
+            JasperReport reporte = JasperCompileManager.compileReport("d://reportes/reporteFiltrado.jrxml");
             JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametro, cn);
             JRViewer jRViewer = new JRViewer(imprimir);
             pReporte.removeAll();
             pReporte.setLayout(new BorderLayout());
-            pReporte.add(jRViewer,BorderLayout.CENTER);
+            pReporte.add(jRViewer, BorderLayout.CENTER);
             jRViewer.setVisible(true);
             pReporte.repaint();
             pReporte.revalidate();
@@ -122,6 +114,10 @@ public class IntReporte extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
+
+
+   
 
     /**
      * @param args the command line arguments

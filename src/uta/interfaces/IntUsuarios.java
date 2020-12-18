@@ -5,6 +5,8 @@
  */
 package uta.interfaces;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Intel
  */
-public class IntUsuarios extends javax.swing.JFrame {
+public class IntUsuarios extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form IntUsuarios
@@ -89,7 +92,7 @@ public class IntUsuarios extends javax.swing.JFrame {
 
     private void cargarUsuarios(String cedula) {
         try {
-            String[] titulos = {"CEDULA", "APELLIDO", "NOMBRE", "CARGO", "CONTRASEÑA"};
+            String[] titulos = {"CEDULA", "APELLIDO", "NOMBRE", "CARGO"};
             modeloTabla = new DefaultTableModel(null, titulos);
             String[] registros = new String[5];
             conexion cc = new conexion();
@@ -170,8 +173,7 @@ public class IntUsuarios extends javax.swing.JFrame {
             String cargo = jcbxCargo.getSelectedItem().toString();
             conexion cc = new conexion();
             Connection cn = cc.conectar();
-            String sql = "update usuarios set NOM_USU='" + nombre + "',APE_USU='" + apellido + "',PER_USU='" + cargo + "',CLA_USU='" + clave
-                    + "' where CED_USU='" + cedula + "';";
+            String sql = "update usuarios set NOM_USU='" + nombre + "',APE_USU='" + apellido + "',PER_USU='" + cargo + "' where CED_USU='" + cedula + "';";
             PreparedStatement pst = cn.prepareStatement(sql);
             int n = pst.executeUpdate(sql);
             bloquearBotones();
@@ -224,6 +226,7 @@ public class IntUsuarios extends javax.swing.JFrame {
     private void cargaDatosModificar() {
         desbloquearTextos();
         this.jtxtCedula.setEnabled(false);
+        this.jtxtContraseña.setEnabled(false);
         desbloquearBotonesModificar();
         int fila = this.jtblUsuarios.getSelectedRow();
         if (fila != -1) {
@@ -231,8 +234,7 @@ public class IntUsuarios extends javax.swing.JFrame {
             this.jtxtNombre.setText(jtblUsuarios.getValueAt(fila, 2).toString());
             this.jtxtApellido.setText(jtblUsuarios.getValueAt(fila, 1).toString());
             this.jcbxCargo.setSelectedItem(jtblUsuarios.getValueAt(fila, 3));
-            this.jtxtContraseña.setText(jtblUsuarios.getValueAt(fila, 4).toString());
-
+            this.jtxtContraseña.setText("OCULTA");
         }
     }
 
@@ -469,17 +471,13 @@ public class IntUsuarios extends javax.swing.JFrame {
                 .addComponent(jbtnSalir))
         );
 
-        jtblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
+        jtblUsuarios = new javax.swing.JTable(){
+            public boolean isCellEditable(int a, int b){
+                return false;
             }
-        ));
+        };
+        jtblUsuarios.getTableHeader().setResizingAllowed(false);
+        jtblUsuarios.getTableHeader().setReorderingAllowed(false);
         jtblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtblUsuariosMouseClicked(evt);
@@ -508,8 +506,8 @@ public class IntUsuarios extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jtxtBuscarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

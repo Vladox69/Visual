@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9badd1df-498b-41fe-aa9f-dfaa7f86ad78">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     estudiantes.`CED_EST` AS estudiantes_CED_EST,
+     estudiantes.`APE_EST` AS estudiantes_APE_EST,
+     estudiantes.`NOM_EST` AS estudiantes_NOM_EST,
+     estudiantes.`TELF_EST` AS estudiantes_TELF_EST,
+     estudiantes.`SEX_EST` AS estudiantes_SEX_EST,
+     estudiantes.`EST_CIV_EST` AS estudiantes_EST_CIV_EST,
+     estudiantes.`PRO_EST` AS estudiantes_PRO_EST,
+     estudiantes.`ID_CUR_PER` AS estudiantes_ID_CUR_PER
+FROM
+     `estudiantes` estudiantes]]>
+	</queryString>
+	<field name="estudiantes_CED_EST" class="java.lang.String"/>
+	<field name="estudiantes_APE_EST" class="java.lang.String"/>
+	<field name="estudiantes_NOM_EST" class="java.lang.String"/>
+	<field name="estudiantes_TELF_EST" class="java.lang.String"/>
+	<field name="estudiantes_SEX_EST" class="java.lang.String"/>
+	<field name="estudiantes_EST_CIV_EST" class="java.lang.String"/>
+	<field name="estudiantes_PRO_EST" class="java.lang.String"/>
+	<field name="estudiantes_ID_CUR_PER" class="java.lang.String"/>
+	<title>
+		<band height="86" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="86" uuid="d9ab23dc-ddaa-4cd5-b64a-c3de44539b14"/>
+				<imageExpression><![CDATA["D:\\Documentos de Intel\\Documents\\NetBeansProjects\\Visual\\src\\imagenes\\logoU.png"]]></imageExpression>
+			</image>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="455" y="66" width="100" height="20" uuid="76b0b111-26ed-4812-b767-e29ad229bed7"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="555" height="38" uuid="d81cd001-24e9-4af6-b832-40a9a001ba2b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="24" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE ESTUDIANTES POR PROVINCIA]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="10e6c942-1be4-4e25-9836-c602e9efb94f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="1162797b-275a-42bf-8183-bdca9a9b5037"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20" uuid="b67275a5-b4e4-4795-a336-d65232cbf7e0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="2" width="100" height="20" uuid="f18df8df-e94b-46f2-97c3-1d24876e8f29"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROVINCIA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d4c6791c-73c8-4a21-83a0-03a2f0d056eb"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_CED_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="fb965ef5-f0c8-4e01-86e8-16a8bc905573"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_APE_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="0a336381-3de7-478e-865a-bd85626c5247"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_NOM_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="f390368d-5281-41cb-871b-ae7520d06b9e"/>
+				<textFieldExpression><![CDATA[$F{estudiantes_PRO_EST}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="34">
+			<staticText>
+				<reportElement x="0" y="14" width="222" height="20" uuid="57213c45-fd16-4e53-a81a-dd1833fe330d"/>
+				<text><![CDATA[ELABORADO POR: VLADIMIR AGUACUNCHI]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="14" width="100" height="20" uuid="452377b0-df77-46a6-a609-4d10172af414"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="191">
+			<barChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="191" uuid="f6ad1d60-0fb1-4b00-ac86-15d5640cac9e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Provincias"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{estudiantes_PRO_EST}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{COLUMN_COUNT}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
