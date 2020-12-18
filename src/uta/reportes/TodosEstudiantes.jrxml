@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77afed8a-7f3a-4401-9654-425a7b88d895">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select * from estudiantes]]>
+	</queryString>
+	<field name="CED_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APE_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOM_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELF_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SEX_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EST_CIV_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRO_EST" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_CUR_PER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="117" y="17" width="340" height="33" forecolor="#CC3300" backcolor="#CCCCCC" uuid="e4690942-d079-4bc6-b4e4-702555a909cd"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[ESTUDIANTES MATRICULADOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="ac2a863c-efcd-4b37-99a3-2a50071f160e"/>
+				<text><![CDATA[CED_EST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="2" width="100" height="20" uuid="c8fb2e6d-f0c3-422b-9841-13ac3c3ff5de"/>
+				<text><![CDATA[APE_EST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="2" width="100" height="20" uuid="05c50da4-7b38-4f90-9b97-e994bb329096"/>
+				<text><![CDATA[NOM_EST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="2" width="100" height="20" uuid="803b50f2-39b8-4c5c-920f-adb173f3b2fd"/>
+				<text><![CDATA[ID_CUR_PER]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="7" width="100" height="20" uuid="60569696-6cb6-4b8b-8347-eb757e08c783"/>
+				<textFieldExpression><![CDATA[$F{CED_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="7" width="100" height="20" uuid="148e606d-080d-4187-9e9d-38cb3dd4e951"/>
+				<textFieldExpression><![CDATA[$F{APE_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="7" width="100" height="20" uuid="9fa4af8f-aa40-468d-83d3-72f774c2c985"/>
+				<textFieldExpression><![CDATA[$F{NOM_EST}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="7" width="100" height="20" uuid="dfa4ebc1-8fc8-4772-b476-9be37d0fa576"/>
+				<textFieldExpression><![CDATA[$F{ID_CUR_PER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
