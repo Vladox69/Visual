@@ -8,7 +8,6 @@ package uta.interfaces;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,45 +26,56 @@ public class IntCursos extends javax.swing.JFrame {
     public IntCursos() {
         initComponents();
         cargarCursos("");
+        bloquearBotones();
+        bloquearCampos();
+        generarCodigoCurso();
     }
-    
+
     public void bloquearCampos() {
         txtNivel.setEnabled(false);
         txtNombre.setEnabled(false);
         txtDescripcion.setEnabled(false);
     }
-    
+
     public void desbloquearCampos() {
         txtNivel.setEnabled(true);
         txtNombre.setEnabled(true);
         txtDescripcion.setEnabled(true);
     }
-    
+
     public void bloquearBotones() {
         btInsertar.setEnabled(false);
         btModificar.setEnabled(false);
         btEliminar.setEnabled(false);
         btCancelar.setEnabled(false);
     }
-    
+
     public void desbloquearBotones() {
         btCancelar.setEnabled(true);
         btInsertar.setEnabled(true);
         btEliminar.setEnabled(true);
         btModificar.setEnabled(true);
     }
-    
+
+    public void limpiarCampos() {
+        txtNombre.setText("");
+        txtNivel.setText("");
+        txtDescripcion.setText("");
+        txtID.setText("");
+    }
+
     DefaultTableModel modeloDatos;
-    Integer idCurso;
-    final String prefijo = "CU";
+    private Integer idCurso;
+    private final String prefijo = "CU";
+    private String codigo;
 
     public void cargarCursos(String curso) {
         try {
             String[] titulosTab = {
-                "Nombre", "Nivel", "Descripción"
+                "ID", "Nombre", "Nivel", "Descripción"
             };
             modeloDatos = new DefaultTableModel(null, titulosTab);
-            String[] cursos = new String[3];
+            String[] cursos = new String[4];
             conexion cc = new conexion();
             Connection cn = cc.conectar();
             String sql = "";
@@ -77,16 +87,24 @@ public class IntCursos extends javax.swing.JFrame {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
+                cursos[0] = rs.getString("ID_CUR");
                 idCurso = Integer.valueOf(rs.getString("ID_CUR").substring(2, 4));
-                cursos[0] = rs.getString("NOM_CUR");
-                cursos[1] = rs.getString("NIV_CUR");
-                cursos[2] = rs.getString("OBS_CUR");
+                cursos[1] = rs.getString("NOM_CUR");
+                cursos[2] = rs.getString("NIV_CUR");
+                cursos[3] = rs.getString("OBS_CUR");
                 modeloDatos.addRow(cursos);
             }
-            System.out.println(idCurso);
             tbCursos.setModel(modeloDatos);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Sucedio algo en la carga de datos");
+        }
+    }
+
+    public void generarCodigoCurso() {
+        if (idCurso < 10) {
+            codigo = prefijo + "0" + (idCurso + 1);
+        } else {
+            codigo = prefijo + (idCurso + 1);
         }
     }
 
@@ -95,12 +113,6 @@ public class IntCursos extends javax.swing.JFrame {
             String nombre;
             String nivel;
             String descripcion;
-            String codigo;
-            if (idCurso < 10) {
-                codigo = prefijo + "0" + (idCurso + 1);
-            } else {
-                codigo = prefijo + (idCurso + 1);
-            }
             if (txtNombre.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debes ingresar un nombre de curso");
                 txtNombre.requestFocus();
@@ -127,6 +139,82 @@ public class IntCursos extends javax.swing.JFrame {
         }
     }
 
+    public void cargarCampos() {
+        int fila = tbCursos.getSelectedRow();
+        if (fila >= 0) {
+            txtID.setText(tbCursos.getValueAt(fila, 0).toString());
+            txtNombre.setText(tbCursos.getValueAt(fila, 1).toString());
+            txtNivel.setText(tbCursos.getValueAt(fila, 2).toString());
+            txtDescripcion.setText(tbCursos.getValueAt(fila, 3).toString());
+            desbloquearCampos();
+            btModificar.setEnabled(true);
+            btEliminar.setEnabled(true);
+        }
+    }
+
+    public void extensionModificar() {
+        int op = JOptionPane.showConfirmDialog(null, "Realmente desea modificar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (op == 0) {
+            modificarCurso();
+            tbCursos.setCellSelectionEnabled(false);
+            bloquearBotones();
+            bloquearCampos();
+            limpiarCampos();
+            cargarCursos("");
+        } else {
+            tbCursos.setCellSelectionEnabled(false);
+            bloquearBotones();
+            bloquearCampos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(null, "No se modificó");
+        }
+    }
+
+    public void modificarCurso() {
+        try {
+            conexion cc = new conexion();
+            Connection cn = cc.conectar();
+            String sqlUpdate = "update curso set NOM_CUR='" + txtNombre.getText()
+                    + "',NIV_CUR='" + txtNivel.getText()
+                    + "',OBS_CUR='" + txtDescripcion.getText()
+                    + "' where ID_CUR='" + txtID.getText() + "'";
+            PreparedStatement pst = cn.prepareStatement(sqlUpdate);
+            pst.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo modificar");
+        }
+    }
+    
+    public void extensionEliminar() {
+        int op = JOptionPane.showConfirmDialog(null, "Realmente desea eliminar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (op == 0) {
+            eliminarCurso();
+            tbCursos.setCellSelectionEnabled(false);
+            bloquearBotones();
+            bloquearCampos();
+            limpiarCampos();
+            cargarCursos("");
+        } else {
+            tbCursos.setCellSelectionEnabled(false);
+            bloquearBotones();
+            bloquearCampos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(null, "No se elimino");
+        }
+    }
+    
+    public void eliminarCurso(){
+       try {
+            String sqlDelete = "delete from curso where ID_EST=" + txtID.getText();
+            conexion cc = new conexion();
+            Connection cn = cc.conectar();
+            PreparedStatement pt = cn.prepareStatement(sqlDelete);
+             pt.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se puede eliminar este curso porque tiene estudiantes");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,6 +231,8 @@ public class IntCursos extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtNivel = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
         pBotones = new javax.swing.JPanel();
         btNuevo = new javax.swing.JButton();
         btInsertar = new javax.swing.JButton();
@@ -164,6 +254,16 @@ public class IntCursos extends javax.swing.JFrame {
 
         jLabel3.setText("Descripción");
 
+        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Identificador");
+
+        txtID.setEnabled(false);
+
         javax.swing.GroupLayout pCamposLayout = new javax.swing.GroupLayout(pCampos);
         pCampos.setLayout(pCamposLayout);
         pCamposLayout.setHorizontalGroup(
@@ -172,36 +272,48 @@ public class IntCursos extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pCamposLayout.createSequentialGroup()
-                        .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(94, 94, 94)
+                        .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(84, 84, 84)
                         .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         pCamposLayout.setVerticalGroup(
             pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCamposLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(8, 8, 8)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
 
         btNuevo.setText("Nuevo");
+        btNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoActionPerformed(evt);
+            }
+        });
 
         btInsertar.setText("Insertar");
         btInsertar.addActionListener(new java.awt.event.ActionListener() {
@@ -211,10 +323,25 @@ public class IntCursos extends javax.swing.JFrame {
         });
 
         btModificar.setText("Modificar");
+        btModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarActionPerformed(evt);
+            }
+        });
 
         btEliminar.setText("Eliminar");
+        btEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btSalir.setText("Salir");
 
@@ -262,6 +389,11 @@ public class IntCursos extends javax.swing.JFrame {
 
             }
         ));
+        tbCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCursosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbCursos);
 
         jLabel4.setText("Buscar por nombre");
@@ -317,8 +449,41 @@ public class IntCursos extends javax.swing.JFrame {
 
     private void btInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarActionPerformed
         insertarCurso();
+        limpiarCampos();
         cargarCursos("");
     }//GEN-LAST:event_btInsertarActionPerformed
+
+    private void tbCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCursosMouseClicked
+        cargarCampos();
+        btCancelar.setEnabled(true);
+        btNuevo.setEnabled(false);
+    }//GEN-LAST:event_tbCursosMouseClicked
+
+    private void btNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoActionPerformed
+        desbloquearCampos();
+        txtID.setText(codigo);
+        btCancelar.setEnabled(true);
+        btInsertar.setEnabled(true);
+    }//GEN-LAST:event_btNuevoActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        limpiarCampos();
+        bloquearBotones();
+        btNuevo.setEnabled(true);
+        bloquearCampos();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+        
+    }//GEN-LAST:event_txtDescripcionActionPerformed
+
+    private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
+        extensionModificar();
+    }//GEN-LAST:event_btModificarActionPerformed
+
+    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
+        extensionEliminar();
+    }//GEN-LAST:event_btEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,6 +531,7 @@ public class IntCursos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pBotones;
     private javax.swing.JPanel pCampos;
@@ -373,6 +539,7 @@ public class IntCursos extends javax.swing.JFrame {
     private javax.swing.JTable tbCursos;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNivel;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

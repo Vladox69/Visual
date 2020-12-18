@@ -313,15 +313,7 @@ public class IntEstudiantes extends javax.swing.JInternalFrame {
         return cedulaCorrecta;
     }
 
-    public boolean existeEstudiante() {
-        if (esCedula()) {
-
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Digita una cédula válida");
-            return false;
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
